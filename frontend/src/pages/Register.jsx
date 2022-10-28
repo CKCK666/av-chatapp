@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Logo from "../assets/logo.svg";
 import { useNavigate, Link } from "react-router-dom"
 import styled from "styled-components"
@@ -8,8 +8,17 @@ import axios from "axios"
 import { registerRoute } from '../utilis/apiRoutes';
 import handleValidation from '../utilis/validation.js';
 const Register = () => {
+  const navigate=useNavigate()
+  useEffect( () => {
+    if (localStorage.getItem("avatar-chat-app")){
+      navigate("/")
+    }
+     ;
+  }, [navigate]);
+
+  
     const toastOptions = {
-        position: "bottom-right",
+        position: "top-center",
         autoClose: 8000,
         pauseOnHover: true,
         draggable: true,
@@ -31,7 +40,13 @@ const Register = () => {
             username,email,password
 
         })
-        console.log(data)
+        if(data.status === false){
+          toast.error(data.mgs,toastOptions)
+        }
+        if(data.status === true){
+          toast.success("register successfully",toastOptions)
+            navigate("/login")
+        }
       }
    
     }
@@ -43,6 +58,7 @@ const Register = () => {
   return (
     <>
              <FormContainer>
+             <h1>SIGN UP</h1>
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
             <img src={Logo} alt="logo" />
@@ -91,6 +107,7 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
+  color:white;
   background-color: #131324;
   .brand {
     display: flex;
