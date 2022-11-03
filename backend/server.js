@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import connectDb from "./config/connection.js"
 import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
+import messageRoutes from "./routes/messageRoutes.js"
 const app =express()
 dotenv.config()
 connectDb()
@@ -15,6 +16,7 @@ app.use(cors())
 
 app.use("/api/auth",authRoutes)
 app.use("/api/users",userRoutes)
+app.use("/api/messages",messageRoutes)
 
 
 const PORT =process.env.PORT || 5000
