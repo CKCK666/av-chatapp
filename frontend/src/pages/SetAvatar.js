@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { setAvatarRoute } from "../utilis/apiRoutes";
+const {REACT_APP_CHAT_APP} =process.env
 export default function SetAvatar() {
   const api = `https://api.multiavatar.com/4645646`;
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function SetAvatar() {
   };
 
   useEffect( () => {
-    const user =JSON.parse(localStorage.getItem("avatar-chat-app"))
+    const user =JSON.parse(localStorage.getItem(REACT_APP_CHAT_APP))
     console.log(user.isAvatarImageSet)
     if(user){
       if(user.isAvatarImageSet){
@@ -41,7 +42,7 @@ export default function SetAvatar() {
       toast.error("Please select an avatar", toastOptions);
     } else {
       const user = await JSON.parse(
-        localStorage.getItem("avatar-chat-app")
+        localStorage.getItem(REACT_APP_CHAT_APP)
       );
 
       const { data } = await axios.patch(`${setAvatarRoute}/${user._id}`, {

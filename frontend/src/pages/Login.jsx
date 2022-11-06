@@ -6,11 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import axios from "axios"
 import {  loginRoute } from '../utilis/apiRoutes';
+const {REACT_APP_CHAT_APP} =process.env
 
 const Login = () => {
   const navigate=useNavigate()
   useEffect( () => {
-    if (localStorage.getItem("avatar-chat-app")){
+    if (localStorage.getItem(REACT_APP_CHAT_APP)){
       navigate("/")
     }
       
@@ -63,7 +64,7 @@ const Login = () => {
         if(data.status === true){
        
           toast.success("login successfully",toastOptions)
-          localStorage.setItem("avatar-chat-app",JSON.stringify(data.user))
+          localStorage.setItem(REACT_APP_CHAT_APP,JSON.stringify(data.user))
             navigate("/")
         }
       }

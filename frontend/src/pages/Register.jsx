@@ -7,10 +7,11 @@ import "react-toastify/dist/ReactToastify.css"
 import axios from "axios"
 import { registerRoute } from '../utilis/apiRoutes';
 import handleValidation from '../utilis/validation.js';
+const {REACT_APP_CHAT_APP} =process.env
 const Register = () => {
   const navigate=useNavigate()
   useEffect( () => {
-    if (localStorage.getItem("avatar-chat-app")){
+    if (localStorage.getItem(REACT_APP_CHAT_APP)){
       navigate("/")
     }
      ;

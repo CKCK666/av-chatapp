@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../assets/logo.svg";
-
+const {REACT_APP_CHAT_APP} =process.env
 const Contacts = ({contacts,currentUser,changeChat}) => {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
@@ -10,7 +10,7 @@ const Contacts = ({contacts,currentUser,changeChat}) => {
   useEffect( () => {
     const fetchUser= async()=>{
       const data = await JSON.parse(
-        localStorage.getItem("avatar-chat-app")
+        localStorage.getItem(REACT_APP_CHAT_APP)
       );
       setCurrentUserName(data.username);
       setCurrentUserImage(data.avatarImage);

@@ -2,13 +2,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Robot from "../assets/robot.gif";
+const {REACT_APP_CHAT_APP} =process.env
+
 export default function Welcome() {
   const [userName, setUserName] = useState("");
   useEffect( () => {
    const fetchUser = async()=>{
     setUserName(
         await JSON.parse(
-          localStorage.getItem("avatar-chat-app")
+          localStorage.getItem(REACT_APP_CHAT_APP)
         ).username
       );
    }

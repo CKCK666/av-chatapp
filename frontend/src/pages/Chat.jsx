@@ -1,24 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { allUsersRoute } from "../utilis/apiRoutes";
+import { allUsersRoute,host } from "../utilis/apiRoutes";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import ChatContainer from "../components/ChatContainer";
+import { io } from "socket.io-client";
+const {REACT_APP_CHAT_APP} =process.env
 const Chat = () => {
   const navigate = useNavigate();
+  const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   useEffect(() => {
-    if (!localStorage.getItem("avatar-chat-app")) {
+    if (!localStorage.getItem(REACT_APP_CHAT_APP)) {
       navigate("/login");
     } else {
-      setCurrentUser(JSON.parse(localStorage.getItem("avatar-chat-app")));
+      setCurrentUser(JSON.parse(localStorage.getItem(REACT_APP_CHAT_APP)));
      
     }
   }, [navigate]);
+  useEffect(() => {
+    if (currentUser) {
+      socket.current = io(host);
+      socket.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     const aLLUsers = async () => {
@@ -46,7 +55,7 @@ const Chat = () => {
        
         {currentChat === undefined ?
           <Welcome/>
-          :<ChatContainer currentChat={currentChat} currentUser={currentUser}/>
+          :<ChatContainer currentChat={currentChat} socket={socket} />
         }
         
         
