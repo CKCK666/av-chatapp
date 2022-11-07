@@ -14,9 +14,7 @@ const Login = () => {
     if (localStorage.getItem(REACT_APP_CHAT_APP)){
       navigate("/")
     }
-    else{
-      navigate("/login")
-    }
+   
       
   }, [navigate]);
 
